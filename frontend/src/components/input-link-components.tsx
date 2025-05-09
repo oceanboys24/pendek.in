@@ -1,39 +1,44 @@
-import { useState, type ChangeEvent } from "react";
+import { useState } from "react";
+import { useInputUrl } from "../hook/useInputUrl";
+import { useShortLink } from "../hook/useShortLink";
+import ResultComponents from "./result-components";
 
-type Props = {
-  input: { url: string };
-  setInput: React.Dispatch<React.SetStateAction<{ url: string }>>;
-};
-
-const InputLink = ({ input, setInput }: Props) => {
+const InputLink = () => {
+  const { register, handleSubmit, reset } = useInputUrl();
+  const { mutateAsync, isPending } = useShortLink();
   const [url, setUrl] = useState<string>("");
 
-  const handleClick = () => {
-    setInput({ url });
+  const onsubmit = async (url: { url: string }) => {
+    const res = mutateAsync(url);
+    reset({
+      url: "",
+    });
+    setUrl((await res).short_link);
   };
 
   return (
-    <div className="bg-purple-600 p-4 rounded-xl w-xl border-amber-500">
-      <div className="flex flex-col my-4">
-        <label htmlFor="url" className="text-4xl my-2 font-bold font-sans ">
-          Title:
-        </label>
-        <input
-          id="title"
-          type="text"
-          name="url"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setUrl(e.target.value)
-          }
-          className="bg-gray-200 p-2 rounded-md focus:bg-gray-400 text-black"
-        />
+    <div className="flex flex-col justify-center items-center h-full gap-4 text-white">
+      <div className="bg-purple-600 p-4 rounded-xl w-xl border-amber-500">
+        <div className="flex flex-col my-4">
+          <label htmlFor="url" className="text-4xl my-2 font-bold font-sans ">
+            Title:
+          </label>
+          <input
+            id="title"
+            type="text"
+            placeholder="http://localhost:5173/"
+            {...register("url")}
+            className="bg-gray-200 p-2 rounded-md focus:bg-gray-400 text-black"
+          />
+        </div>
+        <button
+          onClick={handleSubmit(onsubmit)}
+          className="p-2 w-full text-xl bg-gray-400 hover:bg-gray-500 rounded-2xl cursor-pointer font-black font-sans "
+        >
+          {isPending ? "Loading..." : "Short link"}
+        </button>
       </div>
-      <button
-        onClick={handleClick}
-        className="p-2 w-full text-xl bg-gray-400 hover:bg-gray-500 rounded-2xl cursor-pointer font-black font-sans "
-      >
-        Short link
-      </button>
+      <ResultComponents url={url} />
     </div>
   );
 };
