@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useInputUrl } from "../hook/useInputUrl";
 import { useShortLink } from "../hook/useShortLink";
 import ResultComponents from "./result-components";
+import { toast } from "sonner";
+import { isValidUrl } from "../utils/validate-url";
 
 const InputLink = () => {
   const { register, handleSubmit, reset } = useInputUrl();
@@ -9,11 +11,15 @@ const InputLink = () => {
   const [url, setUrl] = useState<string>("");
 
   const onsubmit = async (url: { url: string }) => {
-    const res = mutateAsync(url);
-    reset({
-      url: "",
-    });
-    setUrl((await res).short_link);
+    if (isValidUrl(url.url)) {
+      const res = mutateAsync(url);
+      reset({
+        url: "",
+      });
+      setUrl((await res).short_link);
+    } else {
+      toast.error("Error Link Url");
+    }
   };
 
   return (

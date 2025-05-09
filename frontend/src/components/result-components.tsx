@@ -4,7 +4,9 @@ const ResultComponents = ({ url }: { url: string }) => {
       <h1 className="font-bold text-3xl">Result:</h1>
       <div className="flex gap-4">
         <h1>Link:</h1>
-        <h1>{url}</h1>
+        <a href={url} target="_blank">
+          {url}
+        </a>
       </div>
     </div>
   );
