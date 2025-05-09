@@ -1,10 +1,8 @@
 package main
 
 import (
-	"log"
-
 	"github.com/gofiber/fiber/v2"
-	"github.com/joho/godotenv"
+
 	"pendek.in/config"
 	"pendek.in/routes"
 )
@@ -13,11 +11,6 @@ import (
 
 
 func main() {
-	// Load Env
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Cannot Load ENV")
-	}
 	// Connect Database
 	config.ConnectDatabaseNeon()
 
