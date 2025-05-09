@@ -9,5 +9,6 @@ import (
 
 
 func ShortRoutes(route fiber.Router)  {
-	route.Get("/", handlers.ShortHandlerGet)
+	route.Get("/:id", handlers.ShortHandlerGetId)
+	route.Post("/", handlers.ShortHandlerCreate)
 }

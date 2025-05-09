@@ -6,9 +6,10 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"pendek.in/models"
 )
 
-var DB *gorm.DB
+var DbClient *gorm.DB
 
 func ConnectDatabaseNeon()  {
 	dsn := os.Getenv("DATABASE_URL")
@@ -17,5 +18,7 @@ func ConnectDatabaseNeon()  {
 		log.Fatal("Cannot Connect Database", err)
 	}
 
-	DB = db
+	db.AutoMigrate(&models.ShortModel{})
+
+	DbClient = db
 }
