@@ -1,15 +1,19 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import InputLink from "./components/input-link-components";
+import ResultComponents from "./components/result-components";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const [input, setInput] = useState<{ url: string }>({
+    url: "",
+  });
   return (
-    <>
-      <h1>Hallo te pas</h1>
-    </>
+    <div className="bg-gray-300 w-full h-screen">
+      <div className="flex flex-col justify-center items-center h-full gap-4 text-white">
+        <InputLink input={input} setInput={setInput} />
+        <ResultComponents url={input.url} />
+      </div>
+    </div>
   );
 }
 
