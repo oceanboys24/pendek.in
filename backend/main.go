@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 
 	"pendek.in/config"
 	"pendek.in/routes"
@@ -17,6 +18,10 @@ func main() {
 	// Init Fiber 
 	app := fiber.New()
 
+	// Use Cors
+	app.Use(cors.New())
+
+	
 	// Short Link Generator Endpoint
 	routes.ShortRoutes(app)
 
