@@ -18,10 +18,9 @@ FROM alpine:latest
 
 WORKDIR /root/
 
+
 # Copy the built binary from builder
 COPY --from=builder /app/app .
-# COPY --from=builder /app/.env .env
-COPY --from=builder /app/.env .env
 
 # Command to run
 CMD ["./app"]
