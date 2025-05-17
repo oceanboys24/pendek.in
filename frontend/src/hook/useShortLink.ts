@@ -12,7 +12,7 @@ export const useShortLink = () => {
   >({
     mutationKey: ["short-url"],
     mutationFn: async (data: { url: string }) => {
-      const response = await axios.post("http://192.168.18.172:3001", data);
+      const response = await axios.post("https://api.alfiandirizki.com/", data);
       return response.data;
     },
     onSuccess: async (res) => {

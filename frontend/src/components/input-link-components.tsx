@@ -23,11 +23,19 @@ const InputLink = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center h-full gap-4 text-white">
-      <div className="bg-purple-600 p-4 rounded-xl w-xl border-amber-500">
-        <div className="flex flex-col my-4">
-          <label htmlFor="url" className="text-4xl my-2 font-bold font-sans ">
-            Title:
+    <div className="flex flex-col items-center w-full gap-6 text-white">
+      <div className="bg-white/50 backdrop-blur-3xl shadow-xl p-6 rounded-xl w-full max-w-xl">
+        <div className="flex flex-col mb-4">
+          <label
+            htmlFor="url"
+            className="text-xl sm:text-3xl font-bold font-sans text-black flex items-center gap-2 mb-2"
+          >
+            <img
+              src="/chain.svg"
+              alt="chain"
+              className="w-8 h-8 sm:w-10 sm:h-10"
+            />
+            Your Long URL
           </label>
           <input
             id="title"
@@ -39,9 +47,9 @@ const InputLink = () => {
         </div>
         <button
           onClick={handleSubmit(onsubmit)}
-          className="p-2 w-full text-xl bg-gray-400 hover:bg-gray-500 rounded-2xl cursor-pointer font-black font-sans "
+          className="p-2 w-full text-lg sm:text-xl bg-gray-400 hover:bg-gray-500 rounded-2xl font-bold font-sans cursor-pointer"
         >
-          {isPending ? "Loading..." : "Short link"}
+          {isPending ? "Loading..." : "Shorten URL"}
         </button>
       </div>
       <ResultComponents url={url} />
